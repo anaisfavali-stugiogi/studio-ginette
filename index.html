@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Studio Ginette — Interior Design</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,300;0,400;1,300;1,400&family=Outfit:wght@200;300;400&display=swap" rel="stylesheet"/>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --ivory:   #f7f4ef;
+  --cream:   #ede8e0;
+  --sand:    #d6cfc4;
+  --clay:    #b89a7c;
+  --bark:    #3c2f23;
+  --ink:     #1a1410;
+  --smoke:   #8a847c;
+  --white:   #fdfcfa;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--ivory);
+  color: var(--ink);
+  font-family: 'Outfit', sans-serif;
+  font-weight: 300;
+  overflow-x: hidden;
+  cursor: none;
+}
+
+/* Custom cursor */
+.cursor {
+  position: fixed;
+  width: 8px; height: 8px;
+  background: var(--bark);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%,-50%);
+  transition: transform .1s, width .3s, height .3s, background .3s;
+}
+.cursor-ring {
+  position: fixed;
+  width: 36px; height: 36px;
+  border: 1px solid var(--clay);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%,-50%);
+  transition: transform .18s ease-out, width .3s, height .3s, opacity .3s;
+  opacity: .6;
+}
+body.hovering .cursor { width: 14px; height: 14px; background: var(--clay); }
+body.hovering .cursor-ring { width: 56px; height: 56px; opacity: .3; }
+
+/* Nav */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 28px 52px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  mix-blend-mode: multiply;
+}
+.nav-logo {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-weight: 300;
+  font-size: 20px;
+  letter-spacing: .06em;
+  color: var(--ink);
+  text-decoration: none;
+}
+.nav-links {
+  display: flex;
+  gap: 40px;
+  list-style: none;
+}
+.nav-links a {
+  font-size: 11px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--ink);
+  text-decoration: none;
+  opacity: .6;
+  transition: opacity .25s;
+}
+.nav-links a:hover { opacity: 1; }
+
+/* Hero */
+.hero {
+  height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  overflow: hidden;
+}
+.hero-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 0 52px 80px 52px;
+  position: relative;
+  z-index: 2;
+}
+.hero-eyebrow {
+  font-size: 10px;
+  letter-spacing: .26em;
+  text-transform: uppercase;
+  color: var(--clay);
+  margin-bottom: 24px;
+  opacity: 0;
+  animation: fadeUp .9s .3s forwards;
+}
+.hero-title {
+  font-family: 'Playfair Display', serif;
+  font-weight: 300;
+  font-size: clamp(48px, 5.5vw, 80px);
+  line-height: 1.08;
+  letter-spacing: -.01em;
+  color: var(--ink);
+  opacity: 0;
+  animation: fadeUp .9s .5s forwards;
+}
+.hero-title em {
+  font-style: italic;
+  color: var(--clay);
+}
+.hero-sub {
+  margin-top: 28px;
+  font-size: 14px;
+  line-height: 1.8;
+  color: var(--smoke);
+  max-width: 340px;
+  opacity: 0;
+  animation: fadeUp .9s .75s forwards;
+}
+.hero-cta {
+  margin-top: 48px;
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 11px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--ink);
+  text-decoration: none;
+  opacity: 0;
+  animation: fadeUp .9s .95s forwards;
+  transition: gap .3s;
+}
+.hero-cta:hover { gap: 22px; }
+.hero-cta::after {
+  content: '';
+  display: block;
+  width: 40px;
+  height: 1px;
+  background: var(--clay);
+  transition: width .3s;
+}
+.hero-cta:hover::after { width: 60px; }
+
+.hero-image {
+  position: relative;
+  overflow: hidden;
+  opacity: 0;
+  animation: fadeIn 1.2s .2s forwards;
+}
+.hero-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.04);
+  transition: transform 8s ease-out;
+}
+.hero-image.loaded img { transform: scale(1); }
+.hero-image::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, var(--ivory) 0%, transparent 30%);
+}
+.hero-number {
+  position: absolute;
+  bottom: 80px;
+  left: -10px;
+  font-family: 'Playfair Display', serif;
+  font-size: 140px;
+  font-weight: 300;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(60,47,35,.08);
+  line-height: 1;
+  z-index: 1;
+  user-select: none;
+}
+
+/* Marquee */
+.marquee-bar {
+  background: var(--bark);
+  padding: 14px 0;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.marquee-inner {
+  display: inline-flex;
+  gap: 0;
+  animation: marquee 22s linear infinite;
+}
+.marquee-item {
+  font-size: 10px;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--sand);
+  padding: 0 36px;
+}
+.marquee-dot {
+  color: var(--clay);
+  padding: 0 4px;
+}
+
+/* Section base */
+section { padding: 120px 52px; }
+.section-label {
+  font-size: 10px;
+  letter-spacing: .26em;
+  text-transform: uppercase;
+  color: var(--clay);
+  margin-bottom: 16px;
+}
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-weight: 300;
+  font-size: clamp(32px, 3.5vw, 52px);
+  line-height: 1.15;
+  color: var(--ink);
+}
+.section-title em { font-style: italic; }
+
+/* Work section */
+#work { background: var(--white); }
+.work-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 72px;
+}
+.work-header p {
+  font-size: 14px;
+  color: var(--smoke);
+  max-width: 280px;
+  line-height: 1.8;
+}
+
+/* Filter tabs */
+.filter-tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 56px;
+  flex-wrap: wrap;
+}
+.filter-btn {
+  font-size: 10px;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  padding: 8px 18px;
+  border: 1px solid var(--sand);
+  background: transparent;
+  color: var(--smoke);
+  cursor: none;
+  transition: all .25s;
+}
+.filter-btn.active, .filter-btn:hover {
+  background: var(--bark);
+  border-color: var(--bark);
+  color: var(--ivory);
+}
+
+/* Masonry grid */
+.grid {
+  columns: 3;
+  column-gap: 20px;
+}
+.grid-item {
+  break-inside: avoid;
+  margin-bottom: 20px;
+  position: relative;
+  overflow: hidden;
+  cursor: none;
+}
+.grid-item img {
+  width: 100%;
+  display: block;
+  transition: transform .6s cubic-bezier(.25,.1,.25,1);
+}
+.grid-item:hover img { transform: scale(1.04); }
+.grid-item-info {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(transparent 50%, rgba(26,20,16,.75));
+  opacity: 0;
+  transition: opacity .4s;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 24px 20px;
+}
+.grid-item:hover .grid-item-info { opacity: 1; }
+.grid-item-title {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-weight: 300;
+  font-size: 20px;
+  color: var(--ivory);
+  line-height: 1.2;
+}
+.grid-item-meta {
+  font-size: 10px;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--clay);
+  margin-top: 6px;
+}
+
+/* Lightbox */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(26,20,16,.95);
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .4s;
+}
+.lightbox.open {
+  opacity: 1;
+  pointer-events: all;
+}
+.lightbox img {
+  max-height: 88vh;
+  max-width: 80vw;
+  object-fit: contain;
+}
+.lightbox-close {
+  position: absolute;
+  top: 32px; right: 40px;
+  font-size: 11px;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--sand);
+  cursor: none;
+  opacity: .6;
+  transition: opacity .2s;
+}
+.lightbox-close:hover { opacity: 1; }
+.lightbox-caption {
+  position: absolute;
+  bottom: 40px;
+  left: 52px;
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 18px;
+  color: var(--ivory);
+  opacity: .7;
+}
+
+/* About */
+#about { background: var(--cream); }
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+  margin-top: 64px;
+}
+.about-image {
+  position: relative;
+  aspect-ratio: 3/4;
+  overflow: hidden;
+}
+.about-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.about-image::before {
+  content: '';
+  position: absolute;
+  top: -16px; left: -16px;
+  right: 16px; bottom: 16px;
+  border: 1px solid var(--clay);
+  opacity: .4;
+  z-index: -1;
+}
+.about-body p {
+  font-size: 15px;
+  line-height: 1.9;
+  color: var(--smoke);
+  margin-bottom: 20px;
+}
+.about-body p strong {
+  font-weight: 400;
+  color: var(--bark);
+}
+.about-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  margin-top: 48px;
+  padding-top: 48px;
+  border-top: 1px solid var(--sand);
+}
+.stat-number {
+  font-family: 'Playfair Display', serif;
+  font-weight: 300;
+  font-size: 42px;
+  color: var(--clay);
+  line-height: 1;
+}
+.stat-label {
+  font-size: 11px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--smoke);
+  margin-top: 8px;
+}
+
+/* Services */
+#services { background: var(--white); }
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  margin-top: 72px;
+  border: 1px solid var(--cream);
+}
+.service-card {
+  padding: 48px 36px;
+  border: 1px solid var(--cream);
+  transition: background .3s;
+  position: relative;
+  overflow: hidden;
+}
+.service-card::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 2px;
+  background: var(--clay);
+  transform: scaleY(0);
+  transform-origin: bottom;
+  transition: transform .4s;
+}
+.service-card:hover::before { transform: scaleY(1); }
+.service-card:hover { background: var(--ivory); }
+.service-num {
+  font-family: 'Playfair Display', serif;
+  font-weight: 300;
+  font-size: 13px;
+  color: var(--clay);
+  letter-spacing: .1em;
+  margin-bottom: 28px;
+}
+.service-name {
+  font-family: 'Playfair Display', serif;
+  font-weight: 300;
+  font-size: 22px;
+  color: var(--ink);
+  margin-bottom: 16px;
+  line-height: 1.3;
+}
+.service-desc {
+  font-size: 13px;
+  line-height: 1.8;
+  color: var(--smoke);
+}
+
+/* Contact */
+#contact { background: var(--bark); }
+#contact .section-label { color: var(--clay); }
+#contact .section-title { color: var(--ivory); }
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 100px;
+  margin-top: 72px;
+}
+.contact-info p {
+  font-size: 14px;
+  line-height: 1.9;
+  color: rgba(245,240,232,.55);
+  margin-bottom: 48px;
+}
+.contact-detail {
+  margin-bottom: 28px;
+}
+.contact-detail-label {
+  font-size: 10px;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--clay);
+  margin-bottom: 6px;
+}
+.contact-detail-value {
+  font-size: 15px;
+  color: var(--ivory);
+  opacity: .8;
+}
+
+/* Form */
+.form-group {
+  margin-bottom: 28px;
+  position: relative;
+}
+.form-group label {
+  display: block;
+  font-size: 10px;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--clay);
+  margin-bottom: 10px;
+}
+.form-group input,
+.form-group textarea,
+.form-group select {
+  width: 100%;
+  background: rgba(245,240,232,.07);
+  border: none;
+  border-bottom: 1px solid rgba(245,240,232,.2);
+  padding: 12px 0;
+  font-family: 'Outfit', sans-serif;
+  font-size: 14px;
+  font-weight: 300;
+  color: var(--ivory);
+  outline: none;
+  transition: border-color .3s;
+  -webkit-appearance: none;
+}
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select { border-bottom-color: var(--clay); }
+.form-group textarea { resize: none; height: 100px; }
+.form-group select option { background: var(--bark); }
+.form-submit {
+  display: inline-flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 12px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 11px;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--ivory);
+  background: transparent;
+  border: 1px solid rgba(245,240,232,.3);
+  padding: 16px 36px;
+  cursor: none;
+  transition: all .3s;
+}
+.form-submit:hover {
+  background: var(--clay);
+  border-color: var(--clay);
+  color: var(--ink);
+}
+.form-success {
+  display: none;
+  font-size: 13px;
+  color: var(--clay);
+  letter-spacing: .1em;
+  margin-top: 16px;
+}
+
+/* Footer */
+footer {
+  background: var(--ink);
+  padding: 40px 52px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.footer-logo {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-weight: 300;
+  font-size: 18px;
+  color: var(--clay);
+}
+.footer-copy {
+  font-size: 11px;
+  color: rgba(245,240,232,.3);
+  letter-spacing: .1em;
+}
+.footer-links {
+  display: flex;
+  gap: 28px;
+  list-style: none;
+}
+.footer-links a {
+  font-size: 10px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: rgba(245,240,232,.4);
+  text-decoration: none;
+  transition: color .25s;
+}
+.footer-links a:hover { color: var(--clay); }
+
+/* Animations */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+.reveal {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity .8s ease, transform .8s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: none;
+}
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox">
+  <img id="lightbox-img" src="" alt=""/>
+  <div class="lightbox-caption" id="lightbox-caption"></div>
+  <div class="lightbox-close" id="lightbox-close">Close ✕</div>
+</div>
+
+<!-- Nav -->
+<nav>
+  <a href="#" class="nav-logo">Studio Ginette</a>
+  <ul class="nav-links">
+    <li><a href="#work">Work</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- Hero -->
+<section class="hero" style="padding:0;">
+  <div class="hero-text">
+    <div class="hero-eyebrow">Interior Design Studio · Paris</div>
+    <h1 class="hero-title">
+      Spaces that<br>
+      <em>breathe</em><br>
+      with intention.
+    </h1>
+    <p class="hero-sub">We craft refined interiors where materiality, light, and silence speak for themselves.</p>
+    <a href="#work" class="hero-cta">View Projects</a>
+  </div>
+  <div class="hero-image" id="heroImg">
+    <div class="hero-number">01</div>
+    <img src="images/hero.jpg" alt="Studio Ginette"/>
+  </div>
+</section>
+
+<!-- Marquee -->
+<div class="marquee-bar">
+  <div class="marquee-inner" id="marquee"></div>
+</div>
+
+<!-- Work -->
+<section id="work">
+  <div class="work-header reveal">
+    <div>
+      <div class="section-label">Selected Work</div>
+      <h2 class="section-title">Projects that<br><em>define spaces</em></h2>
+    </div>
+    <p>A curated selection of residential and architectural interiors, each shaped by a deep respect for craft.</p>
+  </div>
+
+  <div class="filter-tabs" id="filters">
+    <button class="filter-btn active" data-filter="all">All</button>
+    <button class="filter-btn" data-filter="Residential">Homes & Apartments</button>
+    <button class="filter-btn" data-filter="Airbnb">Airbnb Ready</button>
+    <button class="filter-btn" data-filter="Renovation">Renovation</button>
+    <button class="filter-btn" data-filter="Styling">Styling</button>
+  </div>
+
+  <div class="grid" id="grid"></div>
+</section>
+
+<!-- About -->
+<section id="about">
+  <div class="section-label reveal">About</div>
+  <h2 class="section-title reveal">Anaïs Favali —<br><em>the eye behind the studio</em></h2>
+  <div class="about-grid">
+    <div class="about-image reveal">
+      <img src="images/about.jpg" alt="Anaïs Favali — Studio Ginette"/>
+    </div>
+    <div class="about-body reveal">
+      <p>Studio Ginette was born from a love of the everyday interior — the home you return to, the space you wake up in. Founded by Anaïs Favali, the studio specialises in <strong>residential interiors that feel genuinely lived-in and deeply personal</strong>.</p>
+      <p>We work on homes, apartments, and short-let properties — transforming them through considered design, thoughtful material choices, and an instinct for what makes a space feel right. Whether it's a full redesign or a targeted renovation upgrade, <strong>every project starts with listening</strong>.</p>
+      <p>We take on a small number of projects each season to give each home the care and attention it deserves.</p>
+      <div class="about-stats">
+        <div>
+          <div class="stat-number">08+</div>
+          <div class="stat-label">Years of practice</div>
+        </div>
+        <div>
+          <div class="stat-number">64</div>
+          <div class="stat-label">Projects delivered</div>
+        </div>
+        <div>
+          <div class="stat-number">12</div>
+          <div class="stat-label">Countries</div>
+        </div>
+        <div>
+          <div class="stat-number">100%</div>
+          <div class="stat-label">Bespoke approach</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Services -->
+<section id="services">
+  <div class="section-label reveal">What We Do</div>
+  <h2 class="section-title reveal">Our <em>services</em></h2>
+  <div class="services-grid reveal">
+    <div class="service-card">
+      <div class="service-num">01</div>
+      <div class="service-name">Home & Apartment Design</div>
+      <div class="service-desc">Full-service interior design for primary residences and apartments — from mood board to final styling. We handle every detail so your home becomes exactly what you imagined.</div>
+    </div>
+    <div class="service-card">
+      <div class="service-num">02</div>
+      <div class="service-name">Airbnb-Ready Interiors</div>
+      <div class="service-desc">We design short-let properties to feel effortlessly welcoming and photographically beautiful — maximising both guest experience and rental appeal.</div>
+    </div>
+    <div class="service-card">
+      <div class="service-num">03</div>
+      <div class="service-name">Renovation Upgrades</div>
+      <div class="service-desc">Targeted interventions that transform a space without a full overhaul. New materials, finishes, lighting, and furniture — the changes that make the biggest difference.</div>
+    </div>
+    <div class="service-card">
+      <div class="service-num">04</div>
+      <div class="service-name">Styling & Finishing</div>
+      <div class="service-desc">The final layer — object selection, art placement, textiles, and the carefully chosen details that turn a designed room into a home.</div>
+    </div>
+    <div class="service-card">
+      <div class="service-num">05</div>
+      <div class="service-name">Concept & Mood Direction</div>
+      <div class="service-desc">For clients at the start of their journey. We build a complete visual direction — palette, materials, furniture style — so you know exactly where you're headed before committing.</div>
+    </div>
+    <div class="service-card">
+      <div class="service-num">06</div>
+      <div class="service-name">Design Consultancy</div>
+      <div class="service-desc">A focused session to get an expert eye on your space. Ideal for homeowners who want honest guidance on what to change, keep, and invest in.</div>
+    </div>
+  </div>
+</section>
+
+<!-- Contact -->
+<section id="contact">
+  <div class="contact-grid">
+    <div class="contact-info reveal">
+      <div class="section-label">Let's Work Together</div>
+      <h2 class="section-title">Start a<br><em>conversation</em></h2>
+      <p style="margin-top:32px;">We take on a limited number of new projects each season. If you have a vision worth realising, we'd love to hear from you.</p>
+      <div class="contact-detail">
+        <div class="contact-detail-label">Email</div>
+        <div class="contact-detail-value">hello@studioginette.com</div>
+      </div>
+      <div class="contact-detail">
+        <div class="contact-detail-label">Studio</div>
+        <div class="contact-detail-value">Paris, France</div>
+      </div>
+      <div class="contact-detail">
+        <div class="contact-detail-label">Instagram</div>
+        <div class="contact-detail-value">@studio.ginette</div>
+      </div>
+    </div>
+    <div class="reveal">
+      <div class="form-group">
+        <label>Your Name</label>
+        <input type="text" placeholder="Anaïs Dupont" id="f-name"/>
+      </div>
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" placeholder="hello@yourdomain.com" id="f-email"/>
+      </div>
+      <div class="form-group">
+        <label>Project Type</label>
+        <select id="f-type">
+          <option value="">Select a service</option>
+          <option>Home & Apartment Design</option>
+          <option>Airbnb-Ready Interiors</option>
+          <option>Renovation Upgrade</option>
+          <option>Styling & Finishing</option>
+          <option>Concept & Mood Direction</option>
+          <option>Design Consultancy</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Tell us about your project</label>
+        <textarea id="f-msg" placeholder="A few words about your space, timeline, and vision…"></textarea>
+      </div>
+      <button class="form-submit" id="formSubmit">Send Enquiry →</button>
+      <div class="form-success" id="formSuccess">✦ Thank you — we'll be in touch shortly.</div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-logo">Studio Ginette</div>
+  <div class="footer-copy">© 2024 Studio Ginette. All rights reserved.</div>
+  <ul class="footer-links">
+    <li><a href="#work">Work</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</footer>
+
+<script>
+// ── Image data ──────────────────────────────────────────────
+const IMGS = {
+  arch:     "images/projet-studio-clair.jpg",
+  dining:   "images/projet-atelier-terracotta.jpg",
+  living:   "images/projet-maison-lumiere.jpg",
+  lamp:     "images/projet-fragment-series.jpg",
+  bath1:    "images/projet-suite-doree.jpg",
+  bath2:    "images/projet-sanctuary.jpg",
+  exterior: "images/projet-villa-renovee.jpg",
+  portrait1:"images/projet-salon-velours.jpg"
+};
+
+const projects = [{"id": "living", "title": "Maison Lumière", "year": "2024", "category": "Residential", "img": "living"}, {"id": "dining", "title": "Atelier Terracotta", "year": "2023", "category": "Residential", "img": "dining"}, {"id": "bath1", "title": "Suite Dorée", "year": "2023", "category": "Airbnb", "img": "bath1"}, {"id": "lamp", "title": "Fragment Series", "year": "2024", "category": "Styling", "img": "lamp"}, {"id": "bath2", "title": "Sanctuary", "year": "2023", "category": "Renovation", "img": "bath2"}, {"id": "arch", "title": "Studio Clair", "year": "2024", "category": "Airbnb", "img": "arch"}, {"id": "exterior", "title": "Villa Rénovée", "year": "2022", "category": "Renovation", "img": "exterior"}, {"id": "portrait1", "title": "Salon Velours", "year": "2022", "category": "Residential", "img": "portrait1"}];
+
+// Hero
+document.querySelector('.hero-image img').src = IMGS['arch'];
+document.querySelector('.about-image img').src = IMGS['portrait1'];
+setTimeout(() => document.getElementById('heroImg').classList.add('loaded'), 100);
+
+// Marquee
+const words = ['Interior Design','Homes & Apartments','Airbnb Ready','Renovation','Styling','Materiality','Light','Paris','Bespoke','Craft'];
+const m = document.getElementById('marquee');
+const txt = words.map(w => `<span class="marquee-item">${w}</span><span class="marquee-item marquee-dot">✦</span>`).join('') ;
+m.innerHTML = txt + txt; // duplicate for seamless loop
+
+// Grid render
+const grid = document.getElementById('grid');
+let activeFilter = 'all';
+
+function renderGrid() {
+  grid.innerHTML = '';
+  const filtered = activeFilter === 'all' ? projects : projects.filter(p => p.category === activeFilter);
+  filtered.forEach((p, i) => {
+    const el = document.createElement('div');
+    el.className = 'grid-item';
+    el.style.animationDelay = (i * 0.06) + 's';
+    el.innerHTML = `
+      <img src="${IMGS[p.img]}" alt="${p.title}" loading="lazy"/>
+      <div class="grid-item-info">
+        <div class="grid-item-title">${p.title}</div>
+        <div class="grid-item-meta">${p.category} · ${p.year}</div>
+      </div>`;
+    el.addEventListener('click', () => openLightbox(IMGS[p.img], p.title + ' · ' + p.year));
+    grid.appendChild(el);
+  });
+}
+renderGrid();
+
+// Filter buttons
+document.getElementById('filters').addEventListener('click', e => {
+  const btn = e.target.closest('.filter-btn');
+  if (!btn) return;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  activeFilter = btn.dataset.filter;
+  renderGrid();
+});
+
+// Lightbox
+const lightbox = document.getElementById('lightbox');
+function openLightbox(src, caption) {
+  document.getElementById('lightbox-img').src = src;
+  document.getElementById('lightbox-caption').textContent = caption;
+  lightbox.classList.add('open');
+}
+document.getElementById('lightbox-close').addEventListener('click', () => lightbox.classList.remove('open'));
+lightbox.addEventListener('click', e => { if (e.target === lightbox) lightbox.classList.remove('open'); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') lightbox.classList.remove('open'); });
+
+// Custom cursor
+const cur = document.getElementById('cursor');
+const ring = document.getElementById('cursorRing');
+let mx=0, my=0, rx=0, ry=0;
+document.addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY; });
+function animCursor() {
+  rx += (mx - rx) * 0.14;
+  ry += (my - ry) * 0.14;
+  cur.style.left = mx + 'px'; cur.style.top = my + 'px';
+  ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+  requestAnimationFrame(animCursor);
+}
+animCursor();
+document.querySelectorAll('a,button,.grid-item,.filter-btn').forEach(el => {
+  el.addEventListener('mouseenter', () => document.body.classList.add('hovering'));
+  el.addEventListener('mouseleave', () => document.body.classList.remove('hovering'));
+});
+
+// Scroll reveal
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }});
+}, { threshold: 0.12 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// Form
+document.getElementById('formSubmit').addEventListener('click', () => {
+  const name = document.getElementById('f-name').value.trim();
+  const email = document.getElementById('f-email').value.trim();
+  if (!name || !email) { return; }
+  document.getElementById('formSuccess').style.display = 'block';
+  document.getElementById('formSubmit').style.display = 'none';
+});
+</script>
+</body>
+</html>
