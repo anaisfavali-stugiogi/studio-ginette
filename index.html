@@ -65,9 +65,8 @@ nav {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: rgba(247,244,239,0.92);
-backdrop-filter: blur(8px);
-transition: background .3s;
+  background: transparent;
+transition: background .3s, backdrop-filter .3s;
 }
 .nav-logo {
   font-family: 'Playfair Display', serif;
@@ -948,6 +947,16 @@ document.getElementById('formSubmit').addEventListener('click', () => {
   document.getElementById('formSuccess').style.display = 'block';
   document.getElementById('formSubmit').style.display = 'none';
 });
-</script>
+// Nav scroll
+window.addEventListener('scroll', () => {
+  const nav = document.querySelector('nav');
+  if (window.scrollY > 50) {
+    nav.style.background = 'rgba(247,244,239,0.92)';
+    nav.style.backdropFilter = 'blur(8px)';
+  } else {
+    nav.style.background = 'transparent';
+    nav.style.backdropFilter = 'none';
+  }
+});</script>
 </body>
 </html>
