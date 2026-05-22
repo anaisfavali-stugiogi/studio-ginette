@@ -853,7 +853,7 @@ const IMGS = {
 const projects = [
   {"id": "apartment-bw", "title": "Dubai Apartment B&W", "year": "2026", "category": "Residential", "img": "dining"},
   {"id": "villa-white", "title": "Villa White", "year": "2025", "category": "Residential", "img": "living"},
-  {"id": "podcast", "title": "Podcast Studio", "year": "2023", "category": "Renovation", "img": "arch"},
+  {"id": "podcast", "title": "Podcast Studio", "year": "2023", "category": "Podcast Studio", "img": "arch"},
   {"id": "Baliprod", "title": "Baliprod", "year": "2023", "category": "Renovation", "img": "arch2"},
   {"id": "villa-teman", "title": "Villa Teman", "year": "2024", "category": "Residential", "img": "lamp"},
   {"id": "villa-black", "title": "Villa Black", "year": "2025", "category": "Residential", "img": "bath2"},
@@ -867,7 +867,7 @@ document.querySelector('.about-image img').src = 'images/about.jpg';
 setTimeout(() => document.getElementById('heroImg').classList.add('loaded'), 100);
 
 // Marquee
-const words = ['Interior Design','Homes & Apartments','Airbnb Ready','Renovation','Styling','Materiality','Light','Paris','Bespoke','Craft'];
+const words = ['Interior Design','Homes & Apartments','Airbnb Ready','Renovation','Styling','Materiality','Light','Dubai','Curation','Craft'];
 const m = document.getElementById('marquee');
 const txt = words.map(w => `<span class="marquee-item">${w}</span><span class="marquee-item marquee-dot">✦</span>`).join('') ;
 m.innerHTML = txt + txt; // duplicate for seamless loop
