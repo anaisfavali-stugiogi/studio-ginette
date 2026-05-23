@@ -640,36 +640,38 @@ footer {
   opacity: 1;
   transform: none;
 }
-@media (max-width: 768px) {
+.hamburger { display: none; }
+  
+  @media (max-width: 768px) {
   nav {
     padding: 20px 24px;
   }
   .nav-links { display: none; }
-.hamburger {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-  cursor: pointer;
-  z-index: 200;
-}
-.hamburger span {
-  width: 24px;
-  height: 2px;
-  background: var(--ink);
-  display: block;
-  transition: all .3s;
-}
-.nav-links.open {
-  display: flex;
-  flex-direction: column;
-  position: fixed;
-  inset: 0;
-  background: var(--ivory);
-  align-items: center;
-  justify-content: center;
-  gap: 24px;
-  z-index: 150;
-}
+  .hamburger {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    z-index: 200;
+  }
+  .hamburger span {
+    width: 24px;
+    height: 2px;
+    background: var(--ink);
+    display: block;
+    transition: all .3s;
+  }
+  .nav-links.open {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    inset: 0;
+    background: var(--ivory);
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    z-index: 150;
+  }
   .hero {
     grid-template-columns: 1fr;
     height: auto;
