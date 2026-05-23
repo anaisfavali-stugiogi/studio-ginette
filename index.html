@@ -284,8 +284,10 @@ section { padding: 120px 52px; }
 
 /* Masonry grid */
 .grid {
-  columns: 3;
-  column-gap: 20px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  align-items: start;
 }
 .grid-item {
   break-inside: avoid;
