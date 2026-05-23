@@ -634,6 +634,53 @@ footer {
   opacity: 1;
   transform: none;
 }
+@media (max-width: 768px) {
+  nav {
+    padding: 20px 24px;
+  }
+  .nav-links {
+    display: none;
+  }
+  .hero {
+    grid-template-columns: 1fr;
+    height: auto;
+  }
+  .hero-text {
+    padding: 120px 24px 48px;
+  }
+  .hero-title {
+    font-size: 42px;
+  }
+  .hero-image {
+    height: 50vh;
+  }
+  section {
+    padding: 80px 24px;
+  }
+  .work-header {
+    flex-direction: column;
+    gap: 20px;
+  }
+  .grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .about-grid {
+    grid-template-columns: 1fr;
+  }
+  .services-grid {
+    grid-template-columns: 1fr;
+  }
+  .contact-grid {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+  footer {
+    flex-direction: column;
+    gap: 20px;
+    text-align: center;
+    padding: 40px 24px;
+  }
+}
 </style>
 </head>
 <body>
