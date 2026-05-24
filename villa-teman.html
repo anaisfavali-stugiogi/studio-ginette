@@ -394,7 +394,8 @@ const photos = [
   "images/projet-villa-teman11.jpg",
   "images/projet-villa-teman12.JPG",
   "images/projet-villa-teman13.JPG",
-  "images/projet-villa-teman14.JPG"
+  "images/projet-villa-teman14.JPG",
+  "images/projet-villa-teman13.JPG"
 ];
 
 // Gallery layout: alternate between full-width and mixed rows
@@ -417,7 +418,22 @@ const layouts = [
 
 const grid = document.getElementById('gallery-grid');
 photos.forEach((src, i) => {
-  const layout = layouts[i] || { span: 'half', height: 'row-medium' };
+  const layouts = [
+  { span: 'full-width', height: 'row-tall' },
+  { span: 'half', height: 'row-medium' },
+  { span: 'half', height: 'row-medium' },
+  { span: 'half', height: 'row-medium' },
+  { span: 'half', height: 'row-medium' },
+  { span: 'half', height: 'row-medium' },
+  { span: 'half', height: 'row-medium' },
+  { span: 'full-width', height: 'row-medium' },
+  { span: 'half', height: 'row-short' },
+  { span: 'half', height: 'row-short' },
+  { span: 'half', height: 'row-short' },
+  { span: 'half', height: 'row-short' },
+  { span: 'full-width', height: 'row-tall' },
+  { span: 'full-width', height: 'row-medium' },
+];
   const item = document.createElement('div');
   item.className = `gallery-item ${layout.span} ${layout.height}`;
   item.innerHTML = `<img src="${src}" alt="Villa Teman ${i+1}" loading="lazy"/>`;
