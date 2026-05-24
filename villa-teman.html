@@ -423,7 +423,8 @@ const grid = document.getElementById('gallery-grid');
 photos.forEach((src, i) => {
  
   const item = document.createElement('div');
-  item.className = `gallery-item ${layout.span} ${layout.height}`;
+  const layout = layouts[i] || { span: 'half', height: 'row-medium' };
+item.className = `gallery-item ${layout.span} ${layout.height}`;
   item.innerHTML = `<img src="${src}" alt="Villa Teman ${i+1}" loading="lazy"/>`;
   item.addEventListener('click', () => openLightbox(i));
   grid.appendChild(item);
