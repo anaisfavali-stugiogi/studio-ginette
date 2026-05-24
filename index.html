@@ -980,6 +980,8 @@ function renderGrid() {
     el.addEventListener('click', () => {
   if (p.id === 'villa-teman') {
     window.location.href = 'villa-teman.html';
+  } else if (p.id === 'villa-white') {
+    window.location.href = 'villa-white.html';
   } else {
     openLightbox(IMGS[p.img], p.title + ' · ' + p.year);
   }
