@@ -977,7 +977,13 @@ function renderGrid() {
         <div class="grid-item-title">${p.title}</div>
         <div class="grid-item-meta">${p.category} · ${p.year}</div>
       </div>`;
-    el.addEventListener('click', () => openLightbox(IMGS[p.img], p.title + ' · ' + p.year));
+    el.addEventListener('click', () => {
+  if (p.id === 'villa-teman') {
+    window.location.href = 'villa-teman.html';
+  } else {
+    openLightbox(IMGS[p.img], p.title + ' · ' + p.year);
+  }
+});
     grid.appendChild(el);
   });
 }
