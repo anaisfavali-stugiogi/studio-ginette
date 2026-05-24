@@ -149,7 +149,7 @@ nav {
 }
 .gallery-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 16px;
 }
 .gallery-grid .full-width {
@@ -402,20 +402,20 @@ const photos = [
 // Gallery layout: alternate between full-width and mixed rows
 const layouts = [
   { span: 'full-width', height: 'row-tall' },
-  { span: 'half', height: 'row-medium' },
-  { span: 'half', height: 'row-medium' },
-  { span: 'half', height: 'row-medium' },
-  { span: 'half', height: 'row-medium' },
-  { span: 'half', height: 'row-medium' },
-  { span: 'half', height: 'row-medium' },
+  { span: '', height: 'row-medium' },
+  { span: '', height: 'row-medium' },
+  { span: '', height: 'row-medium' },
+  { span: '', height: 'row-medium' },
+  { span: '', height: 'row-medium' },
+  { span: '', height: 'row-medium' },
   { span: 'full-width', height: 'row-medium' },
-  { span: 'half', height: 'row-medium' },
-  { span: 'half', height: 'row-medium' },
-  { span: 'half', height: 'row-medium' },
-  { span: 'half', height: 'row-medium' },
+  { span: '', height: 'row-medium' },
+  { span: '', height: 'row-medium' },
+  { span: '', height: 'row-medium' },
+  { span: '', height: 'row-medium' },
   { span: 'full-width', height: 'row-tall' },
-  { span: 'half', height: 'row-medium' },
-  { span: 'half', height: 'row-medium' },
+  { span: '', height: 'row-medium' },
+  { span: '', height: 'row-medium' },
   { span: 'full-width', height: 'row-medium' },
 ];
 const grid = document.getElementById('gallery-grid');
