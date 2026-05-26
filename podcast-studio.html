@@ -149,7 +149,7 @@ nav {
 }
 .gallery-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 16px;
 }
 .gallery-grid .full-width {
@@ -413,36 +413,36 @@ const photos = [
   "images/projet-podcast30.jpg",
 ];
 const layouts = [
-  { span: 'full-width', height: 'row-tall' },
-  { span: '', height: 'row-medium' },
-  { span: '', height: 'row-medium' },
-  { span: '', height: 'row-medium' },
-  { span: '', height: 'row-medium' },
-  { span: 'full-width', height: 'row-medium' },
   { span: '', height: 'row-medium' },
   { span: '', height: 'row-medium' },
   { span: '', height: 'row-medium' },
   { span: '', height: 'row-medium' },
   { span: 'full-width', height: 'row-tall' },
-  { span: '', height: 'row-medium' },
-  { span: '', height: 'row-medium' },
-  { span: '', height: 'row-medium' },
-  { span: '', height: 'row-medium' },
-  { span: 'full-width', height: 'row-medium' },
-  { span: '', height: 'row-medium' },
-  { span: '', height: 'row-medium' },
-  { span: '', height: 'row-medium' },
-  { span: '', height: 'row-medium' },
   { span: 'full-width', height: 'row-tall' },
   { span: '', height: 'row-medium' },
   { span: '', height: 'row-medium' },
   { span: '', height: 'row-medium' },
   { span: '', height: 'row-medium' },
-  { span: 'full-width', height: 'row-medium' },
+  { span: 'full-width', height: 'row-tall' },
+  { span: 'full-width', height: 'row-tall' },
   { span: '', height: 'row-medium' },
   { span: '', height: 'row-medium' },
   { span: '', height: 'row-medium' },
-  { span: 'full-width', height: 'row-medium' },
+  { span: '', height: 'row-medium' },
+  { span: 'full-width', height: 'row-tall' },
+  { span: 'full-width', height: 'row-tall' },
+  { span: '', height: 'row-medium' },
+  { span: '', height: 'row-medium' },
+  { span: '', height: 'row-medium' },
+  { span: '', height: 'row-medium' },
+  { span: 'full-width', height: 'row-tall' },
+  { span: 'full-width', height: 'row-tall' },
+  { span: '', height: 'row-medium' },
+  { span: '', height: 'row-medium' },
+  { span: '', height: 'row-medium' },
+  { span: '', height: 'row-medium' },
+  { span: 'full-width', height: 'row-tall' },
+  { span: 'full-width', height: 'row-tall' },
 ];
 const grid = document.getElementById('gallery-grid');
 photos.forEach((src, i) => {
