@@ -407,26 +407,33 @@ const photos = [
 
 // Gallery layout: alternate between full-width and mixed rows
 const layouts = [
-  { span: 'full-width', height: 'row-tall' },
+  // 2 photos
+  { span: '', height: 'row-tall' },
+  { span: '', height: 'row-tall' },
+  // 4 photos
   { span: '', height: 'row-medium' },
   { span: '', height: 'row-medium' },
   { span: '', height: 'row-medium' },
   { span: '', height: 'row-medium' },
-  { span: 'full-width', height: 'row-medium' },
+  // 2 photos
+  { span: '', height: 'row-tall' },
+  { span: '', height: 'row-tall' },
+  // 4 photos
   { span: '', height: 'row-medium' },
   { span: '', height: 'row-medium' },
   { span: '', height: 'row-medium' },
   { span: '', height: 'row-medium' },
-  { span: 'full-width', height: 'row-tall' },
+  // 2 photos
+  { span: '', height: 'row-tall' },
+  { span: '', height: 'row-tall' },
+  // 4 photos
   { span: '', height: 'row-medium' },
   { span: '', height: 'row-medium' },
   { span: '', height: 'row-medium' },
   { span: '', height: 'row-medium' },
-  { span: 'full-width', height: 'row-medium' },
-  { span: '', height: 'row-medium' },
-  { span: '', height: 'row-medium' },
-  { span: '', height: 'row-medium' },
-  { span: '', height: 'row-medium' },
+  // 2 photos
+  { span: '', height: 'row-tall' },
+  { span: '', height: 'row-tall' },
 ];
 const grid = document.getElementById('gallery-grid');
 photos.forEach((src, i) => {
