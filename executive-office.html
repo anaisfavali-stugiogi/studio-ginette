@@ -177,6 +177,15 @@ nav {
   display: block;
   transition: transform .6s cubic-bezier(.25,.1,.25,1);
 }
+  .gallery-item.row-tall {
+  grid-column: span 2;
+  height: 500px;
+}
+
+.gallery-item.row-medium {
+  grid-column: span 1;
+  height: 350px;
+}
 .gallery-item:hover img { transform: scale(1.03); }
 
 /* Fixed heights per row */
