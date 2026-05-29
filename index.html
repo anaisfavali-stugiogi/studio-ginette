@@ -945,6 +945,7 @@ const IMGS = {
   portrait1: "images/projet-dubai-apartment-3D.jpg",
   portrait2: "images/projet-baliprod.jpg",
   portrait3: "images/projet-dubai-studio-3D.jpg"
+  executive: "images/projet-executive-office.jpg",
 };
 
 const projects = [
@@ -956,7 +957,8 @@ const projects = [
   {"id": "apartment-dubai",  "title": "Dubai Apartment Green",    "year": "2026", "category": "Residential", "img": "exterior"},
   {"id": "dubai-apartment-3D",       "title": "Dubai Apartment 3D",         "year": "2026", "category": "3D",          "img": "portrait1"},
   {"id": "baliprod", "title": "Baliprod Creative Office", "year": "2024", "category": "Office", "img": "portrait2"},
-  {"id": "dubai-studio-3D", "title": "Dubai Studio",   "year": "2026", "category": "3D", "img": "portrait3"}
+  {"id": "dubai-studio-3D", "title": "Dubai Studio",   "year": "2026", "category": "3D", "img": "portrait3"},
+  {"id": "executive-office", "title": "Executive Office", "year": "2026", "category": "Office", "img": "executive"},
 ];
   
 // Hero
@@ -1006,6 +1008,8 @@ function renderGrid() {
     window.location.href = 'https://www.studioginetteinteriors.com/baliprod.html';
     } else if (p.id === 'dubai-studio-3D') {
     window.location.href = 'https://www.studioginetteinteriors.com/dubai-studio-3D.html';
+    } else if (p.id === 'executive-office') {
+  window.location.href = 'executive-office.html';
     } else {
     openLightbox(IMGS[p.img], p.title + ' · ' + p.year);
   }
