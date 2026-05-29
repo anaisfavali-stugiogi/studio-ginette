@@ -179,10 +179,16 @@ nav {
 }
 .gallery-item:hover img { transform: scale(1.03); }
 
-/* Fixed heights per row */
-.row-tall { height: 600px; }
-.row-medium { height: 480px; }
-.row-short { height: 360px; }
+  .gallery-item.row-medium {
+  grid-column: span 1;
+  height: 350px;
+}
+
+.gallery-item.row-tall {
+  grid-column: span 2;
+  height: 500px;
+}
+
 
 /* Lightbox */
 .lightbox {
