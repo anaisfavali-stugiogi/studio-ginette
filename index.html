@@ -1158,6 +1158,20 @@ window.addEventListener('scroll', () => {
   }
 });document.getElementById('hamburger').addEventListener('click', () => {
   document.querySelector('.nav-links').classList.toggle('open');
-});</script>
+});
+// Contact form  ← ajoute ici
+document.getElementById('contactForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const data = new FormData(e.target);
+  const response = await fetch('https://api.web3forms.com/submit', {
+    method: 'POST',
+    body: data
+  });
+  if (response.ok) {
+    document.getElementById('contactForm').style.display = 'none';
+    document.getElementById('formSuccess').style.display = 'block';
+  }
+});
+</script>
 </body>
 </html>
