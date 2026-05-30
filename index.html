@@ -68,20 +68,6 @@ nav {
   background: transparent;
 transition: background .3s, backdrop-filter .3s;
 }
-  @media (max-width: 430px) {
-  nav {
-    padding: 4px 20px;
-  }
-  .nav-logo {
-    font-size: 15px;
-  }
-  .nav-logo img {
-    height: 30px;
-  }
-    .nav-links a {
-    font-size: 10px;
- }
-}
 .nav-logo {
   font-family: 'Playfair Display', serif;
   font-style: italic;
@@ -108,6 +94,19 @@ transition: background .3s, backdrop-filter .3s;
   transition: opacity .25s;
 }
 .nav-links a:hover { opacity: 1; }
+
+ /* Mobile */
+@media (max-width: 430px) {
+  nav {
+    padding: 2px 12px; 
+  }
+  .nav-logo img {
+    height: 20px; 
+  }
+  .nav-links a {
+    font-size: 10px;
+  }
+}
 
 /* Hero */
 .hero {
