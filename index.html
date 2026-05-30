@@ -915,33 +915,35 @@ footer {
       </div>
     </div>
     <div class="reveal">
-      <div class="form-group">
-        <label>Your Name</label>
-        <input type="text" placeholder="" id="f-name"/>
-      </div>
-      <div class="form-group">
-        <label>Email</label>
-        <input type="email" placeholder="" id="f-email"/>
-      </div>
-      <div class="form-group">
-        <label>Project Type</label>
-        <select id="f-type">
-          <option value="">Select a service</option>
-          <option>Home & Apartment Design</option>
-          <option>Airbnb-Ready Interiors</option>
-          <option>Renovation Upgrades</option>
-          <option>Styling & Finishing</option>
-          <option>Concept & Mood Direction</option>
-          <option>Design Consultancy</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label>Tell us about your project</label>
-        <textarea id="f-msg" placeholder="A few words about your space, timeline, and vision…"></textarea>
-      </div>
-      <button class="form-submit" id="formSubmit">Send Enquiry →</button>
-      <div class="form-success" id="formSuccess">✦ Thank you! we'll be in touch shortly.</div>
+  <form action="https://formspree.io/f/maqkkzzl" method="POST">
+    <div class="form-group">
+      <label>Your Name</label>
+      <input type="text" name="name" placeholder="" required/>
     </div>
+    <div class="form-group">
+      <label>Email</label>
+      <input type="email" name="email" placeholder="" required/>
+    </div>
+    <div class="form-group">
+      <label>Project Type</label>
+      <select name="project_type">
+        <option value="">Select a service</option>
+        <option>Home & Apartment Design</option>
+        <option>Airbnb-Ready Interiors</option>
+        <option>Renovation Upgrades</option>
+        <option>Styling & Finishing</option>
+        <option>Concept & Mood Direction</option>
+        <option>Design Consultancy</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Tell us about your project</label>
+      <textarea name="message" placeholder="A few words about your space, timeline, and vision…"></textarea>
+    </div>
+    <button class="form-submit" type="submit">Send Enquiry →</button>
+  </form>
+  <div class="form-success" id="formSuccess">✦ Thank you! we'll be in touch shortly.</div>
+</div>
   </div>
 </section>
 
