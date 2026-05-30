@@ -1,1 +1,101 @@
 
+/* Nav */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 0px 70px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: transparent;
+transition: background .3s, backdrop-filter .3s;
+}
+.nav-logo {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-weight: 100;
+  font-size: 60px;
+  letter-spacing: .06em;
+  color: var(--ink);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+}
+  .nav-logo img {
+  height: 150px; 
+}
+.nav-links {
+  display: flex;
+  gap: 30px;
+  list-style: none;
+}
+.nav-links a {
+  font-size: 15px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--ink);
+  text-decoration: none;
+  opacity: .6;
+  transition: opacity .25s;
+}
+.nav-links a:hover { opacity: 1; }
+
+ /* Hamburger */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  padding: 4px;
+  z-index: 101;
+}
+.hamburger span {
+  display: block;
+  width: 22px;
+  height: 1.5px;
+  background: var(--ink);
+  transition: all .3s;
+}
+
+@media (max-width: 768px) {
+  nav {
+    padding: 0 20px;
+    height: 60px;
+  }
+  .nav-logo img {
+    height: 110px;
+    margin-top: 12px;
+  }
+  .hamburger {
+    display: flex;
+  }
+  .nav-links {
+    display: none;
+    position: fixed;
+    top: 60px;
+    left: 0; right: 0;
+    background: rgba(247,244,239,0.97);
+    backdrop-filter: blur(8px);
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    padding: 20px 0 30px;
+    list-style: none;
+    z-index: 99;
+  }
+  .nav-links.open {
+    display: flex;
+  }
+  .nav-links li {
+    width: 100%;
+    text-align: center;
+  }
+  .nav-links a {
+    display: block;
+    padding: 8px 0;
+    font-size: 12px;
+    letter-spacing: .22em;
+    opacity: 0.7;
+  }
+}
