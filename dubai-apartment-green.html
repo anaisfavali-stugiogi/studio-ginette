@@ -398,18 +398,18 @@ const photos = [
   "images/projet-dubai-apartment-green14.jpg"
 ];
 const layouts = [
-  { span: 'span-two', height: 'row-medium' },   
-  { span: 'span-two', height: 'row-medium' },   
-  { span: 'full-width', height: 'row-tall' },   
-  { span: 'span-two', height: 'row-medium' },   
-  { span: 'span-two', height: 'row-medium' },   
-  { span: 'full-width', height: 'row-tall' },   
-  { span: 'span-two', height: 'row-medium' },   
-  { span: 'span-two', height: 'row-medium' },  
-  { span: 'full-width', height: 'row-tall' },   
-  { span: 'span-two', height: 'row-medium' },   
-  { span: 'span-two', height: 'row-medium' },   
-  { span: 'full-width', height: 'row-tall' },
+  { span: '', height: 'row-medium' },           // ligne 1 - photo 1/4
+  { span: '', height: 'row-medium' },           // ligne 1 - photo 2/4
+  { span: '', height: 'row-medium' },           // ligne 1 - photo 3/4
+  { span: '', height: 'row-medium' },           // ligne 1 - photo 4/4
+  { span: 'span-two', height: 'row-tall' },     // ligne 2 - photo 1/2
+  { span: 'span-two', height: 'row-tall' },     // ligne 2 - photo 2/2
+  { span: '', height: 'row-medium' },           // ligne 3 - photo 1/4
+  { span: '', height: 'row-medium' },           // ligne 3 - photo 2/4
+  { span: '', height: 'row-medium' },           // ligne 3 - photo 3/4
+  { span: '', height: 'row-medium' },           // ligne 3 - photo 4/4
+  { span: 'span-two', height: 'row-tall' },     // ligne 4 - photo 1/2
+  { span: 'span-two', height: 'row-tall' },     // ligne 4 - photo 2/2
 ];
 const grid = document.getElementById('gallery-grid');
 photos.forEach((src, i) => {
